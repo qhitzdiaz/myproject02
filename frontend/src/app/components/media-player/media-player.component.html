@@ -1,0 +1,94 @@
+<div class="media-player-container">
+  <!-- Now Playing -->
+  <div class="now-playing">
+    <div class="album-art">
+      <mat-icon>music_note</mat-icon>
+    </div>
+    <div class="track-info">
+      <h3 class="track-title">{{ getCurrentTrack().title }}</h3>
+      <p class="artist-name">{{ getCurrentTrack().artist }}</p>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-section">
+    <div 
+      class="progress-bar-container"
+      (click)="onProgressChangeClick($event)"
+      #progressBar>
+      <div class="progress-bar" [style.width.%]="(currentTime / duration) * 100"></div>
+    </div>
+    <div class="time-display">
+      <span class="current-time">{{ formatTime(currentTime) }}</span>
+      <span class="total-time">{{ formatTime(duration) }}</span>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button 
+      mat-icon-button 
+      (click)="toggleShuffle()" 
+      [class.active]="isShuffle"
+      matTooltip="Shuffle">
+      <mat-icon>shuffle</mat-icon>
+    </button>
+
+    <button mat-icon-button (click)="previousTrack()" matTooltip="Previous">
+      <mat-icon>skip_previous</mat-icon>
+    </button>
+
+    <button 
+      mat-fab 
+      (click)="playPause()" 
+      class="play-button">
+      <mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
+    </button>
+
+    <button mat-icon-button (click)="nextTrack()" matTooltip="Next">
+      <mat-icon>skip_next</mat-icon>
+    </button>
+
+    <button 
+      mat-icon-button 
+      (click)="toggleLoop()" 
+      [class.active]="isLoop"
+      matTooltip="Loop">
+      <mat-icon>repeat</mat-icon>
+    </button>
+  </div>
+
+  <!-- Volume Control -->
+  <div class="volume-section">
+    <button mat-icon-button (click)="toggleMute()" matTooltip="Mute">
+      <mat-icon>{{ isMuted ? 'volume_off' : 'volume_up' }}</mat-icon>
+    </button>
+    <input 
+      type="range"
+      class="volume-slider"
+      [(ngModel)]="volume"
+      (change)="onVolumeChangeInput($event)"
+      min="0"
+      max="100">
+    <span class="volume-display">{{ volume }}</span>
+  </div>
+
+  <!-- Playlist -->
+  <div class="playlist-section">
+    <h4>Playlist</h4>
+    <div class="playlist-container">
+      <div 
+        *ngFor="let track of playlist; let i = index"
+        class="playlist-item"
+        [class.active]="currentTrackIndex === i"
+        (click)="selectTrack(i)">
+        <mat-icon>{{ currentTrackIndex === i && isPlaying ? 'volume_up' : 'music_note' }}</mat-icon>
+        <div class="track-details">
+          <span class="playlist-title">{{ track.title }}</span>
+          <span class="playlist-artist">{{ track.artist }}</span>
+        </div>
+        <span class="track-duration">{{ track.duration }}</span>
+      </div>
+    </div>
+  </div>
+</div>

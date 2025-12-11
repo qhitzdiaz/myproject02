@@ -9,6 +9,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService, User } from '../../services/auth.service';
+import { MediaPlayerComponent } from '../media-player/media-player.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,9 +23,11 @@ import { AuthService, User } from '../../services/auth.service';
     MatIconModule,
     MatListModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MediaPlayerComponent
   ],
-  templateUrl: './dashboard.component.html'
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
   private authService = inject(AuthService);
