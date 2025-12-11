@@ -24,6 +24,51 @@
   font-weight: 400;
 }
 
+/* Notifications Section */
+.notifications-section {
+  margin-bottom: 24px;
+}
+
+.notifications-card {
+  box-shadow: 0 2px 8px rgba(107, 68, 35, 0.1);
+  border-radius: 8px;
+  max-height: 450px;
+  overflow: hidden;
+}
+
+.notifications-card mat-card-header {
+  background: linear-gradient(135deg, #6B4423 0%, #8B5A2B 100%);
+  color: white;
+  margin: -16px -16px 0 -16px;
+  padding: 16px;
+}
+
+.notifications-card mat-card-title {
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  margin: 0;
+
+  mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.notifications-card-content {
+  padding: 0 !important;
+  max-height: 350px;
+  overflow-y: auto;
+
+  app-notification-center {
+    display: block;
+    height: 100%;
+  }
+}
+
 mat-tab-group {
   background-color: white;
   border-radius: 8px;

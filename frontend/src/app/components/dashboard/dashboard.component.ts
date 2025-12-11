@@ -14,7 +14,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AuthService, User } from '../../services/auth.service';
 import { MediaPlayerComponent } from '../media-player/media-player.component';
-import { NotificationCenterComponent } from '../notification-center/notification-center.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,8 +32,7 @@ import { NotificationCenterComponent } from '../notification-center/notification
     MatBadgeModule,
     MatTooltipModule,
     MatDialogModule,
-    MediaPlayerComponent,
-    NotificationCenterComponent
+    MediaPlayerComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
