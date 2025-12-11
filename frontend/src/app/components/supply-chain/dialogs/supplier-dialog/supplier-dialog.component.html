@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Supplier' : 'Add New Supplier' }}</h2>
+
+<mat-dialog-content>
+  <div class="form-container">
+    <mat-error *ngIf="errorMessage" class="error-message">
+      <mat-icon>error</mat-icon>
+      {{ errorMessage }}
+    </mat-error>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Supplier Name *</mat-label>
+      <input matInput [(ngModel)]="formData.name" placeholder="Enter supplier name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Contact Person</mat-label>
+      <input matInput [(ngModel)]="formData.contact_person" placeholder="Enter contact person name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" [(ngModel)]="formData.email" placeholder="Enter email address">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Phone</mat-label>
+      <input matInput [(ngModel)]="formData.phone" placeholder="Enter phone number">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Address</mat-label>
+      <textarea matInput [(ngModel)]="formData.address" placeholder="Enter address" rows="3"></textarea>
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>City</mat-label>
+        <input matInput [(ngModel)]="formData.city" placeholder="Enter city">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Country</mat-label>
+        <input matInput [(ngModel)]="formData.country" placeholder="Enter country">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="formData.status">
+        <mat-option value="active">Active</mat-option>
+        <mat-option value="inactive">Inactive</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="isLoading">
+    {{ isLoading ? 'Saving...' : (isEdit ? 'Update' : 'Create') }}
+  </button>
+</mat-dialog-actions>

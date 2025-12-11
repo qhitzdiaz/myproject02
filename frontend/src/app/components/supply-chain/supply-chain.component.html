@@ -1,0 +1,245 @@
+<div class="supply-chain-container">
+  <div class="header">
+    <h1>Supply Chain Management</h1>
+    <p class="subtitle">Manage suppliers, products, and purchase orders</p>
+  </div>
+
+  <mat-tab-group>
+    <!-- Suppliers Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>local_shipping</mat-icon>
+        <span>Suppliers</span>
+      </ng-template>
+      
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Suppliers</h2>
+          <button mat-raised-button color="primary" (click)="openSupplierDialog()">
+            <mat-icon>add</mat-icon>
+            Add Supplier
+          </button>
+        </div>
+
+        <mat-progress-spinner *ngIf="suppliersLoading" mode="indeterminate" diameter="40"></mat-progress-spinner>
+
+        <div *ngIf="!suppliersLoading && suppliers.length === 0" class="empty-state">
+          <mat-icon>inbox</mat-icon>
+          <p>No suppliers found</p>
+        </div>
+
+        <table mat-table [dataSource]="suppliers" *ngIf="!suppliersLoading && suppliers.length > 0" class="data-table">
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
+
+          <!-- Contact Column -->
+          <ng-container matColumnDef="contact_person">
+            <th mat-header-cell *matHeaderCellDef>Contact</th>
+            <td mat-cell *matCellDef="let element">{{ element.contact_person || '-' }}</td>
+          </ng-container>
+
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{ element.email || '-' }}</td>
+          </ng-container>
+
+          <!-- City Column -->
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef>City</th>
+            <td mat-cell *matCellDef="let element">{{ element.city || '-' }}</td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip [style.background-color]="getStatusColor(element.status)">
+                {{ element.status | titlecase }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="openSupplierDialog(element)" matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteSupplier(element.id!, element.name)" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="suppliersColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: suppliersColumns;"></tr>
+        </table>
+      </div>
+    </mat-tab>
+
+    <!-- Products Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>inventory_2</mat-icon>
+        <span>Products</span>
+      </ng-template>
+      
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Products</h2>
+          <button mat-raised-button color="primary" (click)="openProductDialog()">
+            <mat-icon>add</mat-icon>
+            Add Product
+          </button>
+        </div>
+
+        <mat-progress-spinner *ngIf="productsLoading" mode="indeterminate" diameter="40"></mat-progress-spinner>
+
+        <div *ngIf="!productsLoading && products.length === 0" class="empty-state">
+          <mat-icon>inbox</mat-icon>
+          <p>No products found</p>
+        </div>
+
+        <table mat-table [dataSource]="products" *ngIf="!productsLoading && products.length > 0" class="data-table">
+          <!-- SKU Column -->
+          <ng-container matColumnDef="sku">
+            <th mat-header-cell *matHeaderCellDef>SKU</th>
+            <td mat-cell *matCellDef="let element">{{ element.sku }}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Product Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
+
+          <!-- Category Column -->
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let element">{{ element.category || '-' }}</td>
+          </ng-container>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="unit_price">
+            <th mat-header-cell *matHeaderCellDef>Unit Price</th>
+            <td mat-cell *matCellDef="let element">{{ element.unit_price | currency }}</td>
+          </ng-container>
+
+          <!-- Reorder Level Column -->
+          <ng-container matColumnDef="reorder_level">
+            <th mat-header-cell *matHeaderCellDef>Reorder Level</th>
+            <td mat-cell *matCellDef="let element">{{ element.reorder_level || '-' }}</td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip [style.background-color]="getStatusColor(element.status)">
+                {{ element.status | titlecase }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="openProductDialog(element)" matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteProduct(element.id!, element.name)" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="productsColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: productsColumns;"></tr>
+        </table>
+      </div>
+    </mat-tab>
+
+    <!-- Purchase Orders Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>receipt_long</mat-icon>
+        <span>Purchase Orders</span>
+      </ng-template>
+      
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Purchase Orders</h2>
+          <button mat-raised-button color="primary" (click)="openPODialog()">
+            <mat-icon>add</mat-icon>
+            New Purchase Order
+          </button>
+        </div>
+
+        <mat-progress-spinner *ngIf="poLoading" mode="indeterminate" diameter="40"></mat-progress-spinner>
+
+        <div *ngIf="!poLoading && purchaseOrders.length === 0" class="empty-state">
+          <mat-icon>inbox</mat-icon>
+          <p>No purchase orders found</p>
+        </div>
+
+        <table mat-table [dataSource]="purchaseOrders" *ngIf="!poLoading && purchaseOrders.length > 0" class="data-table">
+          <!-- PO Number Column -->
+          <ng-container matColumnDef="po_number">
+            <th mat-header-cell *matHeaderCellDef>PO Number</th>
+            <td mat-cell *matCellDef="let element">{{ element.po_number }}</td>
+          </ng-container>
+
+          <!-- Supplier Column -->
+          <ng-container matColumnDef="supplier_name">
+            <th mat-header-cell *matHeaderCellDef>Supplier</th>
+            <td mat-cell *matCellDef="let element">{{ element.supplier_name || '-' }}</td>
+          </ng-container>
+
+          <!-- Order Date Column -->
+          <ng-container matColumnDef="order_date">
+            <th mat-header-cell *matHeaderCellDef>Order Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.order_date | date:'short' }}</td>
+          </ng-container>
+
+          <!-- Expected Delivery Column -->
+          <ng-container matColumnDef="expected_delivery">
+            <th mat-header-cell *matHeaderCellDef>Expected Delivery</th>
+            <td mat-cell *matCellDef="let element">{{ element.expected_delivery | date:'short' }}</td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip [style.background-color]="getStatusColor(element.status)">
+                {{ element.status | titlecase }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="openPODialog(element)" matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deletePO(element.id!, element.po_number)" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="poColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: poColumns;"></tr>
+        </table>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

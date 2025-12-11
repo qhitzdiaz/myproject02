@@ -1,0 +1,310 @@
+<div class="serbisyo-container">
+  <div class="header">
+    <h1>Serbisyo24x7</h1>
+    <p class="subtitle">Services Management Platform</p>
+  </div>
+
+  <mat-tab-group>
+    <!-- Categories Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>category</mat-icon>
+        <span>Categories</span>
+      </ng-template>
+      
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Service Categories</h2>
+          <button mat-raised-button color="primary" (click)="openCategoryDialog()">
+            <mat-icon>add</mat-icon>
+            Add Category
+          </button>
+        </div>
+
+        <mat-progress-spinner *ngIf="categoriesLoading" mode="indeterminate" diameter="40"></mat-progress-spinner>
+
+        <div *ngIf="!categoriesLoading && categories.length === 0" class="empty-state">
+          <mat-icon>inbox</mat-icon>
+          <p>No categories found</p>
+        </div>
+
+        <table mat-table [dataSource]="categories" *ngIf="!categoriesLoading && categories.length > 0" class="data-table">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Category Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let element">{{ element.description || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip [style.background-color]="getStatusColor(element.status)">
+                {{ element.status | titlecase }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="openCategoryDialog(element)" matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteCategory(element.id!, element.name)" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="categoriesColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: categoriesColumns;"></tr>
+        </table>
+      </div>
+    </mat-tab>
+
+    <!-- Providers Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>verified_user</mat-icon>
+        <span>Providers</span>
+      </ng-template>
+      
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Service Providers</h2>
+          <button mat-raised-button color="primary" (click)="openProviderDialog()">
+            <mat-icon>add</mat-icon>
+            Add Provider
+          </button>
+        </div>
+
+        <mat-progress-spinner *ngIf="providersLoading" mode="indeterminate" diameter="40"></mat-progress-spinner>
+
+        <div *ngIf="!providersLoading && providers.length === 0" class="empty-state">
+          <mat-icon>inbox</mat-icon>
+          <p>No providers found</p>
+        </div>
+
+        <table mat-table [dataSource]="providers" *ngIf="!providersLoading && providers.length > 0" class="data-table">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Provider Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{ element.email || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Phone</th>
+            <td mat-cell *matCellDef="let element">{{ element.phone || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="category_name">
+            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let element">{{ element.category_name || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="rating">
+            <th mat-header-cell *matHeaderCellDef>Rating</th>
+            <td mat-cell *matCellDef="let element">⭐ {{ element.rating.toFixed(1) }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="availability">
+            <th mat-header-cell *matHeaderCellDef>Availability</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip [style.background-color]="getStatusColor(element.availability)">
+                {{ element.availability | titlecase }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip [style.background-color]="getStatusColor(element.status)">
+                {{ element.status | titlecase }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="openProviderDialog(element)" matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteProvider(element.id!, element.name)" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="providersColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: providersColumns;"></tr>
+        </table>
+      </div>
+    </mat-tab>
+
+    <!-- Services Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>miscellaneous_services</mat-icon>
+        <span>Services</span>
+      </ng-template>
+      
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Services Offered</h2>
+          <button mat-raised-button color="primary" (click)="openServiceDialog()">
+            <mat-icon>add</mat-icon>
+            Add Service
+          </button>
+        </div>
+
+        <mat-progress-spinner *ngIf="servicesLoading" mode="indeterminate" diameter="40"></mat-progress-spinner>
+
+        <div *ngIf="!servicesLoading && services.length === 0" class="empty-state">
+          <mat-icon>inbox</mat-icon>
+          <p>No services found</p>
+        </div>
+
+        <table mat-table [dataSource]="services" *ngIf="!servicesLoading && services.length > 0" class="data-table">
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Service Title</th>
+            <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="provider_name">
+            <th mat-header-cell *matHeaderCellDef>Provider</th>
+            <td mat-cell *matCellDef="let element">{{ element.provider_name || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="category_name">
+            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let element">{{ element.category_name || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Price</th>
+            <td mat-cell *matCellDef="let element">{{ element.price | currency }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="duration_hours">
+            <th mat-header-cell *matHeaderCellDef>Duration</th>
+            <td mat-cell *matCellDef="let element">{{ element.duration_hours }} hrs</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip [style.background-color]="getStatusColor(element.status)">
+                {{ element.status | titlecase }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="openServiceDialog(element)" matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteService(element.id!, element.title)" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="servicesColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: servicesColumns;"></tr>
+        </table>
+      </div>
+    </mat-tab>
+
+    <!-- Bookings Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>calendar_month</mat-icon>
+        <span>Bookings</span>
+      </ng-template>
+      
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Service Bookings</h2>
+          <button mat-raised-button color="primary" (click)="openBookingDialog()">
+            <mat-icon>add</mat-icon>
+            New Booking
+          </button>
+        </div>
+
+        <mat-progress-spinner *ngIf="bookingsLoading" mode="indeterminate" diameter="40"></mat-progress-spinner>
+
+        <div *ngIf="!bookingsLoading && bookings.length === 0" class="empty-state">
+          <mat-icon>inbox</mat-icon>
+          <p>No bookings found</p>
+        </div>
+
+        <table mat-table [dataSource]="bookings" *ngIf="!bookingsLoading && bookings.length > 0" class="data-table">
+          <ng-container matColumnDef="booking_code">
+            <th mat-header-cell *matHeaderCellDef>Booking Code</th>
+            <td mat-cell *matCellDef="let element">{{ element.booking_code }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="service_title">
+            <th mat-header-cell *matHeaderCellDef>Service</th>
+            <td mat-cell *matCellDef="let element">{{ element.service_title || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="customer_name">
+            <th mat-header-cell *matHeaderCellDef>Customer</th>
+            <td mat-cell *matCellDef="let element">{{ element.customer_name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="booking_date">
+            <th mat-header-cell *matHeaderCellDef>Booking Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.booking_date | date:'short' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip [style.background-color]="getStatusColor(element.status)">
+                {{ element.status | titlecase }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="payment_status">
+            <th mat-header-cell *matHeaderCellDef>Payment</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip [style.background-color]="getStatusColor(element.payment_status)">
+                {{ element.payment_status | titlecase }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="openBookingDialog(element)" matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteBooking(element.id!, element.booking_code)" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="bookingsColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: bookingsColumns;"></tr>
+        </table>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

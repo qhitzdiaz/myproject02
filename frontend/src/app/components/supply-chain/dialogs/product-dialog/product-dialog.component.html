@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Product' : 'Add New Product' }}</h2>
+
+<mat-dialog-content>
+  <div class="form-container">
+    <mat-error *ngIf="errorMessage" class="error-message">
+      <mat-icon>error</mat-icon>
+      {{ errorMessage }}
+    </mat-error>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>SKU *</mat-label>
+      <input matInput [(ngModel)]="formData.sku" placeholder="Enter product SKU" [readonly]="isEdit">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Product Name *</mat-label>
+      <input matInput [(ngModel)]="formData.name" placeholder="Enter product name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="formData.description" placeholder="Enter product description" rows="3"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Category</mat-label>
+      <input matInput [(ngModel)]="formData.category" placeholder="Enter category">
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Unit Price</mat-label>
+        <input matInput type="number" [(ngModel)]="formData.unit_price" placeholder="0.00" step="0.01">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Reorder Level</mat-label>
+        <input matInput type="number" [(ngModel)]="formData.reorder_level" placeholder="Enter quantity">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="formData.status">
+        <mat-option value="active">Active</mat-option>
+        <mat-option value="inactive">Inactive</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="isLoading">
+    {{ isLoading ? 'Saving...' : (isEdit ? 'Update' : 'Create') }}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,80 @@
+<h1 mat-dialog-title>{{ isEditMode ? 'Edit Booking' : 'Create New Booking' }}</h1>
+
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="full-width" *ngIf="!isEditMode">
+    <mat-label>Booking Code</mat-label>
+    <input matInput [value]="booking.booking_code" disabled />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Service</mat-label>
+    <mat-select [(ngModel)]="booking.service_id" (selectionChange)="onServiceSelected()" required>
+      <mat-option *ngFor="let service of services" [value]="service.id">
+        {{ service.title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Customer Name</mat-label>
+    <input matInput [(ngModel)]="booking.customer_name" placeholder="Full name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Customer Email</mat-label>
+    <input matInput [(ngModel)]="booking.customer_email" type="email" placeholder="customer@example.com" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Customer Phone</mat-label>
+    <input matInput [(ngModel)]="booking.customer_phone" placeholder="+1 (555) 123-4567" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Booking Date</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="booking.booking_date" />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <div class="row">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Total Price</mat-label>
+      <input matInput [(ngModel)]="booking.total_price" type="number" min="0" step="0.01" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="booking.status">
+        <mat-option value="pending">Pending</mat-option>
+        <mat-option value="confirmed">Confirmed</mat-option>
+        <mat-option value="completed">Completed</mat-option>
+        <mat-option value="cancelled">Cancelled</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Payment Status</mat-label>
+      <mat-select [(ngModel)]="booking.payment_status">
+        <mat-option value="pending">Pending</mat-option>
+        <mat-option value="paid">Paid</mat-option>
+        <mat-option value="failed">Failed</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Special Requests</mat-label>
+    <textarea matInput [(ngModel)]="booking.special_requests" rows="3" placeholder="Any special instructions..."></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" 
+    [disabled]="!booking.customer_name?.trim() || !booking.customer_email?.trim() || !booking.service_id">
+    {{ isEditMode ? 'Update' : 'Create' }}
+  </button>
+</mat-dialog-actions>

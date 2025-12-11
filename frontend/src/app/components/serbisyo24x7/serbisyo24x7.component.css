@@ -1,0 +1,259 @@
+.serbisyo-container {
+  padding: 24px;
+  background-color: #f5f3f0;
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  color: #6B4423;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.header .subtitle {
+  margin: 8px 0 0 0;
+  color: #8B6F47;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+mat-tab-group {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(107, 68, 35, 0.1);
+  overflow: hidden;
+}
+
+::ng-deep .mat-mdc-tab-labels {
+  background-color: #FAF7F4;
+  border-bottom: 2px solid #D4A574;
+}
+
+::ng-deep .mat-mdc-tab-label {
+  min-width: 160px;
+  color: #6B4423 !important;
+  font-weight: 500;
+  text-transform: none;
+}
+
+::ng-deep .mat-mdc-tab-label.mat-mdc-tab-label-active {
+  color: #6B4423 !important;
+}
+
+::ng-deep .mdc-tab-indicator {
+  background-color: #D4A574 !important;
+}
+
+::ng-deep .mat-mdc-tab-label-content mat-icon {
+  margin-right: 8px;
+}
+
+.tab-content {
+  padding: 24px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.tab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.tab-header h2 {
+  margin: 0;
+  color: #6B4423;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.tab-header button {
+  background-color: #6B4423 !important;
+  color: white !important;
+}
+
+.tab-header button:hover {
+  background-color: #8B5A2B !important;
+}
+
+.tab-header mat-icon {
+  margin-right: 8px;
+}
+
+/* Tables */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+::ng-deep .mat-mdc-table {
+  width: 100%;
+}
+
+::ng-deep .mat-mdc-header-cell {
+  background-color: #FAF7F4;
+  color: #6B4423;
+  font-weight: 600;
+  border-bottom: 2px solid #D4A574;
+  padding: 16px 12px;
+}
+
+::ng-deep .mat-mdc-cell {
+  padding: 12px;
+  color: #333;
+  border-bottom: 1px solid #E8E0D8;
+}
+
+::ng-deep .mat-mdc-row:hover {
+  background-color: #FEF9F7;
+}
+
+/* Chips */
+::ng-deep .mat-mdc-chip {
+  font-weight: 500;
+  color: white !important;
+  border-radius: 4px;
+}
+
+/* Buttons */
+button[mat-icon-button] {
+  color: #6B4423;
+}
+
+button[mat-icon-button]:hover {
+  background-color: rgba(107, 68, 35, 0.1);
+  color: #8B5A2B;
+}
+
+button[mat-icon-button].delete:hover {
+  color: #d32f2f;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.empty-state mat-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #D4A574;
+  margin-bottom: 16px;
+}
+
+.empty-state p {
+  margin: 0;
+  color: #8B6F47;
+  font-size: 16px;
+}
+
+/* Loading Spinner */
+mat-progress-spinner {
+  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .serbisyo-container {
+    padding: 16px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .tab-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .tab-header button {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-table {
+    font-size: 12px;
+  }
+
+  ::ng-deep .mat-mdc-header-cell,
+  ::ng-deep .mat-mdc-cell {
+    padding: 8px 6px;
+  }
+
+  ::ng-deep .mat-mdc-tab-label {
+    min-width: 80px;
+    font-size: 12px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Status Colors */
+::ng-deep .mat-mdc-chip {
+  &.pending {
+    background-color: #FFA500 !important;
+  }
+
+  &.active {
+    background-color: #4CAF50 !important;
+  }
+
+  &.inactive {
+    background-color: #999 !important;
+  }
+
+  &.completed {
+    background-color: #2196F3 !important;
+  }
+
+  &.cancelled {
+    background-color: #f44336 !important;
+  }
+
+  &.available {
+    background-color: #4CAF50 !important;
+  }
+
+  &.unavailable {
+    background-color: #f44336 !important;
+  }
+
+  &.paid {
+    background-color: #4CAF50 !important;
+  }
+
+  &.pending {
+    background-color: #FFA500 !important;
+  }
+
+  &.failed {
+    background-color: #f44336 !important;
+  }
+}

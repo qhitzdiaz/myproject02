@@ -456,6 +456,112 @@ body {
   color: var(--primary-color);
 }
 
+.property-card {
+  margin-top: 20px;
+  background: linear-gradient(135deg, rgba(107, 68, 35, 0.05) 0%, rgba(212, 165, 116, 0.05) 100%);
+  border: 1px solid var(--border-color) !important;
+}
+
+.property-card mat-card-header {
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+.property-card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+.property-card mat-card-title mat-icon {
+  color: var(--primary-color);
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.card-description {
+  margin: 0 0 16px 0;
+  color: var(--text-medium);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+}
+
+.view-button {
+  width: 100%;
+  height: 40px;
+  background-color: var(--primary-color) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 600 !important;
+}
+
+.user-management-card {
+  margin-top: 20px;
+  background: linear-gradient(135deg, rgba(107, 68, 35, 0.05) 0%, rgba(212, 165, 116, 0.05) 100%);
+  border: 1px solid var(--border-color) !important;
+}
+
+.user-management-card mat-card-header {
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+.user-management-card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+.user-management-card mat-card-title mat-icon {
+  color: var(--primary-color);
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.supply-chain-card {
+  margin-top: 20px;
+  background: linear-gradient(135deg, rgba(107, 68, 35, 0.05) 0%, rgba(212, 165, 116, 0.05) 100%);
+  border: 1px solid var(--border-color) !important;
+}
+
+.supply-chain-card mat-card-header {
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+.supply-chain-card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+.supply-chain-card mat-card-title mat-icon {
+  color: var(--primary-color);
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
 .user-profile {
   display: flex;
   flex-direction: column;

@@ -1,0 +1,269 @@
+<div class="properties-container" *ngIf="!isLoading; else loading">
+  <div class="properties-header">
+    <h1>Property Management</h1>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div class="stats-grid" *ngIf="stats">
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-header">
+          <mat-icon color="primary">home</mat-icon>
+          <h3>Total Properties</h3>
+        </div>
+        <p class="stat-value">{{ stats.total_properties }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-header">
+          <mat-icon color="primary">check_circle</mat-icon>
+          <h3>Available</h3>
+        </div>
+        <p class="stat-value">{{ stats.available }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-header">
+          <mat-icon color="accent">people</mat-icon>
+          <h3>Rented</h3>
+        </div>
+        <p class="stat-value">{{ stats.rented }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-header">
+          <mat-icon color="primary">attach_money</mat-icon>
+          <h3>Monthly Revenue</h3>
+        </div>
+        <p class="stat-value">{{ stats.monthly_revenue | currency }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Tabs for different sections -->
+  <mat-tab-group>
+    <!-- Properties Tab -->
+    <mat-tab label="Properties">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>My Properties</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Add Property
+          </button>
+        </div>
+
+        <mat-card class="content-card">
+          <mat-card-content>
+            <table mat-table [dataSource]="properties" class="properties-table">
+              <!-- Title Column -->
+              <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef>Title</th>
+                <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+              </ng-container>
+
+              <!-- Address Column -->
+              <ng-container matColumnDef="address">
+                <th mat-header-cell *matHeaderCellDef>Address</th>
+                <td mat-cell *matCellDef="let element">{{ element.address }}, {{ element.city }}</td>
+              </ng-container>
+
+              <!-- Type Column -->
+              <ng-container matColumnDef="property_type">
+                <th mat-header-cell *matHeaderCellDef>Type</th>
+                <td mat-cell *matCellDef="let element">{{ element.property_type }}</td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-chip [color]="getStatusColor(element.status)" selected>
+                    {{ element.status }}
+                  </mat-chip>
+                </td>
+              </ng-container>
+
+              <!-- Price Column -->
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef>Price</th>
+                <td mat-cell *matCellDef="let element">{{ element.price | currency }}</td>
+              </ng-container>
+
+              <!-- Actions Column -->
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button matTooltip="Edit" (click)="editProperty(element)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button matTooltip="Delete" color="warn" (click)="deleteProperty(element)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsProperties"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsProperties;"></tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <!-- Tenants Tab -->
+    <mat-tab label="Tenants">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Tenants</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            Add Tenant
+          </button>
+        </div>
+
+        <mat-card class="content-card">
+          <mat-card-content>
+            <table mat-table [dataSource]="tenants" class="tenants-table">
+              <!-- Name Column -->
+              <ng-container matColumnDef="full_name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.full_name }}</td>
+              </ng-container>
+
+              <!-- Email Column -->
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+              </ng-container>
+
+              <!-- Property Column -->
+              <ng-container matColumnDef="property_title">
+                <th mat-header-cell *matHeaderCellDef>Property</th>
+                <td mat-cell *matCellDef="let element">{{ element.property_title }}</td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-chip [color]="getStatusColor(element.status)" selected>
+                    {{ element.status }}
+                  </mat-chip>
+                </td>
+              </ng-container>
+
+              <!-- Lease End Column -->
+              <ng-container matColumnDef="lease_end">
+                <th mat-header-cell *matHeaderCellDef>Lease End</th>
+                <td mat-cell *matCellDef="let element">{{ element.lease_end | date:'short' }}</td>
+              </ng-container>
+
+              <!-- Actions Column -->
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button matTooltip="Edit" (click)="editTenant(element)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button matTooltip="Delete" color="warn" (click)="deleteTenant(element)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsTenants"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsTenants;"></tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+
+    <!-- Maintenance Tab -->
+    <mat-tab label="Maintenance Requests">
+      <div class="tab-content">
+        <div class="tab-header">
+          <h2>Maintenance Requests</h2>
+          <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon>
+            New Request
+          </button>
+        </div>
+
+        <mat-card class="content-card">
+          <mat-card-content>
+            <table mat-table [dataSource]="maintenanceRequests" class="maintenance-table">
+              <!-- Title Column -->
+              <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef>Title</th>
+                <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+              </ng-container>
+
+              <!-- Property Column -->
+              <ng-container matColumnDef="property_title">
+                <th mat-header-cell *matHeaderCellDef>Property</th>
+                <td mat-cell *matCellDef="let element">{{ element.property_title }}</td>
+              </ng-container>
+
+              <!-- Priority Column -->
+              <ng-container matColumnDef="priority">
+                <th mat-header-cell *matHeaderCellDef>Priority</th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-chip [color]="getPriorityColor(element.priority)" selected>
+                    {{ element.priority }}
+                  </mat-chip>
+                </td>
+              </ng-container>
+
+              <!-- Status Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-chip [color]="getStatusColor(element.status)" selected>
+                    {{ element.status }}
+                  </mat-chip>
+                </td>
+              </ng-container>
+
+              <!-- Date Column -->
+              <ng-container matColumnDef="requested_date">
+                <th mat-header-cell *matHeaderCellDef>Requested</th>
+                <td mat-cell *matCellDef="let element">{{ element.requested_date | date:'short' }}</td>
+              </ng-container>
+
+              <!-- Actions Column -->
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button matTooltip="Edit" (click)="editMaintenance(element)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button matTooltip="Delete" color="warn" (click)="deleteMaintenance(element)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsMaintenance"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsMaintenance;"></tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<ng-template #loading>
+  <div class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Loading property data...</p>
+  </div>
+</ng-template>

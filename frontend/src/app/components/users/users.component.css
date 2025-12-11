@@ -1,0 +1,94 @@
+.users-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.users-header {
+  margin-bottom: 32px;
+}
+
+.users-header h1 {
+  font-size: 28px;
+  color: var(--text-dark);
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.content-card {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 12px !important;
+  padding: 20px !important;
+}
+
+::ng-deep .mat-mdc-table {
+  background: white;
+  font-family: 'Inter', sans-serif;
+}
+
+::ng-deep .mat-mdc-header-cell {
+  background: var(--background-beige) !important;
+  color: var(--text-dark) !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  font-family: 'Inter', sans-serif !important;
+  border-bottom: 2px solid var(--border-color) !important;
+  padding: 16px 8px !important;
+}
+
+::ng-deep .mat-mdc-cell {
+  padding: 12px 8px !important;
+  font-size: 13px !important;
+  color: var(--text-dark) !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+::ng-deep .mat-mdc-row {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+::ng-deep .mat-mdc-row:hover {
+  background: var(--background-light) !important;
+}
+
+.status-chip {
+  cursor: pointer !important;
+  transition: transform 0.2s;
+}
+
+.status-chip:hover {
+  transform: scale(1.05);
+}
+
+::ng-deep .mat-mdc-chip {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+}
+
+::ng-deep .mat-mdc-chip.mat-primary {
+  background: var(--primary-color) !important;
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-chip.mat-accent {
+  background: var(--accent-color) !important;
+  color: var(--text-dark) !important;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  gap: 20px;
+}
+
+.loading-container p {
+  color: var(--text-medium);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}

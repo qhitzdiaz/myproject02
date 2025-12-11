@@ -31,77 +31,67 @@
     </mat-toolbar>
 
     <div class="content">
-      <div class="stats-grid">
-        <mat-card class="stat-card">
-          <mat-card-content>
-            <div class="stat-header">
-              <mat-icon color="primary">trending_up</mat-icon>
-              <h3>Total Views</h3>
-            </div>
-            <p class="stat-value">2,345</p>
-            <p class="stat-change positive">+12.5%</p>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="stat-card">
-          <mat-card-content>
-            <div class="stat-header">
-              <mat-icon color="accent">people</mat-icon>
-              <h3>Active Users</h3>
-            </div>
-            <p class="stat-value">1,234</p>
-            <p class="stat-change positive">+8.2%</p>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="stat-card">
-          <mat-card-content>
-            <div class="stat-header">
-              <mat-icon color="warn">attach_money</mat-icon>
-              <h3>Revenue</h3>
-            </div>
-            <p class="stat-value">$45,678</p>
-            <p class="stat-change positive">+15.3%</p>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="stat-card">
-          <mat-card-content>
-            <div class="stat-header">
-              <mat-icon style="color: #f39c12;">star</mat-icon>
-              <h3>Rating</h3>
-            </div>
-            <p class="stat-value">4.8/5</p>
-            <p class="stat-change positive">+0.3</p>
-          </mat-card-content>
-        </mat-card>
-      </div>
-
-      <mat-card class="info-card">
+      <mat-card class="property-card">
         <mat-card-header>
           <mat-card-title>
-            <mat-icon>person</mat-icon>
-            User Information
+            <mat-icon>home</mat-icon>
+            Property Management
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <div *ngIf="user" class="user-profile">
-            <div class="profile-row">
-              <mat-icon>badge</mat-icon>
-              <span class="label">Full Name:</span>
-              <span class="value">{{ user.full_name }}</span>
-            </div>
-            <div class="profile-row">
-              <mat-icon>email</mat-icon>
-              <span class="label">Email:</span>
-              <span class="value">{{ user.email }}</span>
-            </div>
-            <div class="profile-row" *ngIf="user.username">
-              <mat-icon>account_circle</mat-icon>
-              <span class="label">Username:</span>
-              <span class="value">{{ user.username }}</span>
-            </div>
-          </div>
+          <p class="card-description">Manage your properties, tenants, and maintenance requests</p>
+          <button mat-raised-button color="primary" routerLink="/properties" class="view-button">
+            <mat-icon>arrow_forward</mat-icon>
+            View Properties
+          </button>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="user-management-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>people</mat-icon>
+            User Management
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="card-description">Manage application users and access permissions</p>
+          <button mat-raised-button color="primary" routerLink="/users" class="view-button">
+            <mat-icon>arrow_forward</mat-icon>
+            Manage Users
+          </button>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="supply-chain-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>local_shipping</mat-icon>
+            Supply Chain
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="card-description">Manage suppliers, products, and purchase orders</p>
+          <button mat-raised-button color="primary" routerLink="/supply-chain" class="view-button">
+            <mat-icon>arrow_forward</mat-icon>
+            Manage Supply Chain
+          </button>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="services-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>miscellaneous_services</mat-icon>
+            Serbisyo24x7
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="card-description">Services marketplace platform with bookings and provider management</p>
+          <button mat-raised-button color="primary" routerLink="/serbisyo24x7" class="view-button">
+            <mat-icon>arrow_forward</mat-icon>
+            Manage Services
+          </button>
         </mat-card-content>
       </mat-card>
     </div>

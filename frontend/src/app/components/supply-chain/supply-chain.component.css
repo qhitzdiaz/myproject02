@@ -1,0 +1,185 @@
+.supply-chain-container {
+  padding: 24px;
+  background-color: #fbf9f5;
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 0 0 8px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+::ng-deep .mat-mdc-tab-group {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(107, 68, 35, 0.1);
+}
+
+::ng-deep .mat-mdc-tab-header {
+  background-color: white;
+}
+
+::ng-deep .mat-mdc-tab-labels {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+::ng-deep .mat-mdc-tab-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  color: #666;
+  min-width: 140px;
+}
+
+::ng-deep .mat-mdc-tab-label-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+::ng-deep .mat-mdc-tab-label.mat-mdc-tab-active {
+  color: #6B4423;
+}
+
+::ng-deep .mat-mdc-tab-header-pagination-chevron {
+  border-color: #6B4423;
+}
+
+::ng-deep .mat-mdc-tab-header-pagination-disabled {
+  display: none;
+}
+
+::ng-deep .mdc-tab-indicator__content--underline {
+  border-color: #6B4423;
+}
+
+.tab-content {
+  padding: 24px;
+}
+
+.tab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.tab-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+::ng-deep .mat-mdc-raised-button {
+  font-family: 'Inter', sans-serif;
+  text-transform: none;
+  font-weight: 500;
+}
+
+::ng-deep .mat-mdc-raised-button[color="primary"] {
+  background-color: #6B4423;
+  color: white;
+}
+
+::ng-deep .mat-mdc-raised-button[color="primary"]:hover {
+  background-color: #5a3a1d;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(107, 68, 35, 0.08);
+}
+
+::ng-deep .mat-mdc-table {
+  background-color: transparent;
+}
+
+::ng-deep .mat-mdc-header-cell {
+  background-color: #f5f5f5;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #2c2c2c;
+  padding: 16px;
+  text-align: left;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+::ng-deep .mat-mdc-cell {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #555;
+}
+
+::ng-deep .mat-mdc-row:hover {
+  background-color: #fafaf8;
+}
+
+::ng-deep .mat-mdc-chip-set--stacked {
+  display: block;
+}
+
+::ng-deep .mat-mdc-chip {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 4px;
+}
+
+::ng-deep .mat-mdc-icon-button {
+  color: #6B4423;
+}
+
+::ng-deep .mat-mdc-icon-button:hover {
+  background-color: rgba(107, 68, 35, 0.08);
+}
+
+::ng-deep .mat-mdc-progress-spinner {
+  margin: 24px auto;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  color: #999;
+  font-family: 'Inter', sans-serif;
+}
+
+.empty-state mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #ddd;
+  margin-bottom: 16px;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 14px;
+}

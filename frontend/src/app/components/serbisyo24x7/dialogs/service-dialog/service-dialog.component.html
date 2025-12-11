@@ -1,0 +1,65 @@
+<h1 mat-dialog-title>{{ isEditMode ? 'Edit Service' : 'Add New Service' }}</h1>
+
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Service Title</mat-label>
+    <input matInput [(ngModel)]="service.title" placeholder="e.g., Pipe Installation and Repair" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Description</mat-label>
+    <textarea matInput [(ngModel)]="service.description" rows="3" placeholder="Service description..."></textarea>
+  </mat-form-field>
+
+  <div class="row">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Category</mat-label>
+      <mat-select [(ngModel)]="service.category_id" required>
+        <mat-option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Provider</mat-label>
+      <mat-select [(ngModel)]="service.provider_id" required>
+        <mat-option *ngFor="let provider of providers" [value]="provider.id">
+          {{ provider.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Price</mat-label>
+      <input matInput [(ngModel)]="service.price" type="number" min="0" step="0.01" placeholder="0.00" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Duration (Hours)</mat-label>
+      <input matInput [(ngModel)]="service.duration_hours" type="number" min="0.5" step="0.5" />
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Tags</mat-label>
+    <input matInput [(ngModel)]="service.tags" placeholder="e.g., emergency, same-day, guaranteed" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="service.status">
+      <mat-option value="active">Active</mat-option>
+      <mat-option value="inactive">Inactive</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!service.title.trim() || !service.category_id || !service.provider_id">
+    {{ isEditMode ? 'Update' : 'Create' }}
+  </button>
+</mat-dialog-actions>

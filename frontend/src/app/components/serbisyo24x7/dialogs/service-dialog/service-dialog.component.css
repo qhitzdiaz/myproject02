@@ -1,0 +1,68 @@
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 24px;
+  min-width: 400px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+}
+
+.half-width {
+  flex: 1;
+}
+
+mat-form-field {
+  margin-bottom: 8px;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  gap: 8px;
+}
+
+button[mat-button] {
+  color: #6B4423;
+}
+
+button[mat-button]:hover {
+  background-color: rgba(107, 68, 35, 0.1);
+}
+
+button[mat-raised-button] {
+  background-color: #6B4423 !important;
+  color: white !important;
+}
+
+button[mat-raised-button]:hover:not(:disabled) {
+  background-color: #8B5A2B !important;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+h1[mat-dialog-title] {
+  color: #6B4423;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+@media (max-width: 600px) {
+  mat-dialog-content {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+}

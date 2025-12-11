@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Purchase Order' : 'Create Purchase Order' }}</h2>
+
+<mat-dialog-content>
+  <div class="form-container">
+    <mat-error *ngIf="errorMessage" class="error-message">
+      <mat-icon>error</mat-icon>
+      {{ errorMessage }}
+    </mat-error>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>PO Number *</mat-label>
+      <input matInput [(ngModel)]="formData.po_number" placeholder="e.g. PO-2025-001" [readonly]="isEdit">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Supplier *</mat-label>
+      <mat-select [(ngModel)]="formData.supplier_id">
+        <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">
+          {{ supplier.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Order Date *</mat-label>
+        <input matInput [matDatepicker]="orderDatePicker" [(ngModel)]="formData.order_date">
+        <mat-datepicker-toggle matIconSuffix [for]="orderDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #orderDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Expected Delivery</mat-label>
+        <input matInput [matDatepicker]="deliveryPicker" [(ngModel)]="formData.expected_delivery">
+        <mat-datepicker-toggle matIconSuffix [for]="deliveryPicker"></mat-datepicker-toggle>
+        <mat-datepicker #deliveryPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Total Amount</mat-label>
+        <input matInput type="number" [(ngModel)]="formData.total_amount" placeholder="0.00" step="0.01">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="formData.status">
+          <mat-option value="pending">Pending</mat-option>
+          <mat-option value="confirmed">Confirmed</mat-option>
+          <mat-option value="shipped">Shipped</mat-option>
+          <mat-option value="delivered">Delivered</mat-option>
+          <mat-option value="cancelled">Cancelled</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Notes</mat-label>
+      <textarea matInput [(ngModel)]="formData.notes" placeholder="Enter any additional notes" rows="3"></textarea>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="isLoading">
+    {{ isLoading ? 'Saving...' : (isEdit ? 'Update' : 'Create') }}
+  </button>
+</mat-dialog-actions>

@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +15,7 @@ import { AuthService, User } from '../../services/auth.service';
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
     MatSidenavModule,
     MatToolbarModule,
     MatButtonModule,
