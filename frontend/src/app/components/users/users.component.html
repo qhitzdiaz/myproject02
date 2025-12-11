@@ -1,46 +1,7 @@
 <div class="users-container" *ngIf="!isLoading; else loading">
   <div class="users-header">
     <h1>User Management</h1>
-    <p class="subtitle">Monitor and manage all system users</p>
-  </div>
-
-  <!-- User Statistics Cards -->
-  <div class="stats-grid">
-    <mat-card class="stat-card">
-      <mat-card-content>
-        <div class="stat-icon active">
-          <mat-icon>check_circle</mat-icon>
-        </div>
-        <div class="stat-info">
-          <p class="stat-label">Active Users</p>
-          <p class="stat-value">{{ activeUserCount }}</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="stat-card">
-      <mat-card-content>
-        <div class="stat-icon inactive">
-          <mat-icon>cancel</mat-icon>
-        </div>
-        <div class="stat-info">
-          <p class="stat-label">Inactive Users</p>
-          <p class="stat-value">{{ inactiveUserCount }}</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="stat-card">
-      <mat-card-content>
-        <div class="stat-icon total">
-          <mat-icon>people</mat-icon>
-        </div>
-        <div class="stat-info">
-          <p class="stat-label">Total Users</p>
-          <p class="stat-value">{{ users.length }}</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <p class="subtitle">{{ users.length }} users in the system</p>
   </div>
 
   <mat-card class="content-card">

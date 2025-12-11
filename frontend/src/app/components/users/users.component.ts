@@ -44,14 +44,6 @@ export class UsersComponent implements OnInit {
   isLoading = true;
   displayedColumns = ['username', 'email', 'full_name', 'status', 'created_at', 'actions'];
 
-  get activeUserCount(): number {
-    return this.users.filter(u => u.status === 'active').length;
-  }
-
-  get inactiveUserCount(): number {
-    return this.users.filter(u => u.status === 'inactive').length;
-  }
-
   ngOnInit() {
     this.loadUsers();
   }
