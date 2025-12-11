@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 import { AuthService, User } from '../../services/auth.service';
 import { MediaPlayerComponent } from '../media-player/media-player.component';
 
@@ -24,6 +25,7 @@ import { MediaPlayerComponent } from '../media-player/media-player.component';
     MatListModule,
     MatCardModule,
     MatMenuModule,
+    MatDividerModule,
     MediaPlayerComponent
   ],
   templateUrl: './dashboard.component.html',

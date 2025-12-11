@@ -41,6 +41,11 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'analytics',
+    loadComponent: () => import('./components/analytics-dashboard/analytics-dashboard.component').then(m => m.AnalyticsDashboardComponent),
+    canActivate: [authGuard]
+  },
+  {
     path: '**',
     redirectTo: 'login'
   }

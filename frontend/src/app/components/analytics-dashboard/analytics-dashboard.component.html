@@ -1,0 +1,106 @@
+<div class="analytics-container">
+  <!-- Header -->
+  <div class="analytics-header">
+    <h2>Analytics Dashboard</h2>
+    <div class="header-actions">
+      <button mat-icon-button (click)="refreshAnalytics()" matTooltip="Refresh">
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button mat-icon-button (click)="exportAnalytics()" matTooltip="Export">
+        <mat-icon>download</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Key Metrics -->
+  <div class="metrics-grid">
+    <div *ngFor="let metric of metrics" class="metric-card">
+      <div class="metric-icon" [style.backgroundColor]="metric.color">
+        <mat-icon>{{ metric.icon }}</mat-icon>
+      </div>
+      <div class="metric-content">
+        <div class="metric-label">{{ metric.label }}</div>
+        <div class="metric-value">{{ formatNumber(metric.value) }}</div>
+        <div *ngIf="metric.percentage" class="metric-percentage">
+          <mat-icon class="trend-icon">trending_up</mat-icon>
+          <span>+{{ metric.percentage }}% vs last week</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- System Health Section -->
+  <div class="system-health">
+    <h3>System Health</h3>
+    <div class="health-metrics">
+      <div class="health-item">
+        <div class="health-label">CPU Usage</div>
+        <mat-progress-bar 
+          mode="determinate" 
+          [value]="systemHealth.cpu"
+          [class]="'health-' + getHealthStatus(systemHealth.cpu)">
+        </mat-progress-bar>
+        <div class="health-value">{{ systemHealth.cpu }}%</div>
+      </div>
+
+      <div class="health-item">
+        <div class="health-label">Memory Usage</div>
+        <mat-progress-bar 
+          mode="determinate" 
+          [value]="systemHealth.memory"
+          [class]="'health-' + getHealthStatus(systemHealth.memory)">
+        </mat-progress-bar>
+        <div class="health-value">{{ systemHealth.memory }}%</div>
+      </div>
+
+      <div class="health-item">
+        <div class="health-label">Database Load</div>
+        <mat-progress-bar 
+          mode="determinate" 
+          [value]="systemHealth.database"
+          [class]="'health-' + getHealthStatus(systemHealth.database)">
+        </mat-progress-bar>
+        <div class="health-value">{{ systemHealth.database }}%</div>
+      </div>
+
+      <div class="health-item">
+        <div class="health-label">API Response Time</div>
+        <mat-progress-bar 
+          mode="determinate" 
+          [value]="systemHealth.api"
+          [class]="'health-' + getHealthStatus(systemHealth.api)">
+        </mat-progress-bar>
+        <div class="health-value">{{ systemHealth.api }}%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Services Section -->
+  <div class="top-services">
+    <h3>Top Services by Bookings</h3>
+    <div class="services-list">
+      <div *ngFor="let service of topServices; let i = index" class="service-item">
+        <div class="service-rank">{{ i + 1 }}</div>
+        <div class="service-name">{{ service.name }}</div>
+        <div class="service-bar">
+          <div class="service-bar-fill" [style.width.%]="(service.bookings / 87) * 100"></div>
+        </div>
+        <div class="service-bookings">{{ service.bookings }} bookings</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity Section -->
+  <div class="recent-activity">
+    <h3>Recent Activity</h3>
+    <div class="activity-timeline">
+      <div *ngFor="let activity of recentActivity" class="activity-item">
+        <div class="activity-time">{{ activity.time }}</div>
+        <div class="activity-content">
+          <div class="activity-action">{{ activity.action }}</div>
+          <div class="activity-user">By: {{ activity.user }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
