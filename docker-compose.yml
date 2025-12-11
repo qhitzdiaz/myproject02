@@ -106,12 +106,107 @@ services:
       - login-network
     restart: unless-stopped
 
+  # Supply Chain PostgreSQL Database
+  supply-chain-postgres:
+    image: postgres:15-alpine
+    container_name: supply-chain-postgres
+    environment:
+      POSTGRES_DB: supplychaindb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - supply_chain_postgres_data:/var/lib/postgresql/data
+      - ./supply-chain-service/config/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - login-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Supply Chain Service
+  supply-chain-service:
+    build:
+      context: ./supply-chain-service
+      dockerfile: Dockerfile
+    container_name: supply-chain-service
+    environment:
+      PORT: 3002
+      DB_HOST: supply-chain-postgres
+      DB_PORT: 5432
+      DB_NAME: supplychaindb
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      JWT_SECRET: your-secret-key-change-this-in-production
+      NODE_ENV: production
+    ports:
+      - "3002:3002"
+    depends_on:
+      supply-chain-postgres:
+        condition: service_healthy
+    networks:
+      - login-network
+    restart: unless-stopped
+
+  # Services Management PostgreSQL Database
+  services-management-postgres:
+    image: postgres:15-alpine
+    container_name: services-management-postgres
+    environment:
+      POSTGRES_DB: servicesdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - services_management_postgres_data:/var/lib/postgresql/data
+      - ./services-management-service/config/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - login-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Services Management Service
+  services-management-service:
+    build:
+      context: ./services-management-service
+      dockerfile: Dockerfile
+    container_name: services-management-service
+    environment:
+      PORT: 3003
+      DB_HOST: services-management-postgres
+      DB_PORT: 5432
+      DB_NAME: servicesdb
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      JWT_SECRET: your-secret-key-change-this-in-production
+      NODE_ENV: production
+    ports:
+      - "3003:3003"
+    depends_on:
+      services-management-postgres:
+        condition: service_healthy
+    networks:
+      - login-network
+    restart: unless-stopped
+
 volumes:
   postgres_data:
     driver: local
   property_postgres_data:
     driver: local
+  supply_chain_postgres_data:
+    driver: local
+  services_management_postgres_data:
+    driver: local
 
 networks:
   login-network:
     driver: bridge
+
