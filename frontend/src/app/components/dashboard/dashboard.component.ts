@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService, User } from '../../services/auth.service';
 import { MediaPlayerComponent } from '../media-player/media-player.component';
 import { NotificationCenterComponent } from '../notification-center/notification-center.component';
@@ -29,6 +30,7 @@ import { NotificationCenterComponent } from '../notification-center/notification
     MatMenuModule,
     MatDividerModule,
     MatBadgeModule,
+    MatTooltipModule,
     MediaPlayerComponent,
     NotificationCenterComponent
   ],

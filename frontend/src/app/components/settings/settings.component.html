@@ -1,0 +1,231 @@
+<div class="settings-container">
+  <!-- Header -->
+  <div class="settings-header">
+    <h1>
+      <mat-icon>settings</mat-icon>
+      Settings & Preferences
+    </h1>
+    <p>Customize your application experience</p>
+  </div>
+
+  <!-- Success Message -->
+  <div class="success-message" *ngIf="changesSaved">
+    <mat-icon>check_circle</mat-icon>
+    <span>Settings saved successfully!</span>
+  </div>
+
+  <!-- Tabs -->
+  <mat-tab-group>
+    <!-- Notifications Tab -->
+    <mat-tab label="Notifications" #notificationsTab>
+      <ng-template mat-tab-label>
+        <mat-icon>notifications</mat-icon>
+        <span>Notifications</span>
+      </ng-template>
+
+      <mat-card class="settings-card">
+        <mat-card-content>
+          <div class="setting-item">
+            <div class="setting-label">
+              <h3>Email Notifications</h3>
+              <p>Receive important updates via email</p>
+            </div>
+            <mat-slide-toggle [(ngModel)]="settings.notifications.emailNotifications"></mat-slide-toggle>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="setting-item">
+            <div class="setting-label">
+              <h3>Push Notifications</h3>
+              <p>Get browser push notifications for instant alerts</p>
+            </div>
+            <mat-slide-toggle [(ngModel)]="settings.notifications.pushNotifications"></mat-slide-toggle>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="setting-item">
+            <div class="setting-label">
+              <h3>SMS Notifications</h3>
+              <p>Receive critical alerts via SMS</p>
+            </div>
+            <mat-slide-toggle [(ngModel)]="settings.notifications.smsNotifications"></mat-slide-toggle>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+
+    <!-- Appearance Tab -->
+    <mat-tab label="Appearance" #appearanceTab>
+      <ng-template mat-tab-label>
+        <mat-icon>palette</mat-icon>
+        <span>Appearance</span>
+      </ng-template>
+
+      <mat-card class="settings-card">
+        <mat-card-content>
+          <div class="setting-item">
+            <div class="setting-label">
+              <h3>Theme</h3>
+              <p>Choose your preferred color theme</p>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Select Theme</mat-label>
+              <mat-select [(ngModel)]="settings.appearance.theme">
+                <mat-option value="light">Light</mat-option>
+                <mat-option value="dark">Dark</mat-option>
+                <mat-option value="auto">Auto (System)</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="setting-item">
+            <div class="setting-label">
+              <h3>Font Size</h3>
+              <p>Adjust text size for better readability</p>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Select Font Size</mat-label>
+              <mat-select [(ngModel)]="settings.appearance.fontSize">
+                <mat-option value="small">Small</mat-option>
+                <mat-option value="medium">Medium</mat-option>
+                <mat-option value="large">Large</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+
+    <!-- Privacy Tab -->
+    <mat-tab label="Privacy" #privacyTab>
+      <ng-template mat-tab-label>
+        <mat-icon>security</mat-icon>
+        <span>Privacy</span>
+      </ng-template>
+
+      <mat-card class="settings-card">
+        <mat-card-content>
+          <div class="setting-item">
+            <div class="setting-label">
+              <h3>Public Profile</h3>
+              <p>Allow others to view your profile</p>
+            </div>
+            <mat-slide-toggle [(ngModel)]="settings.privacy.publicProfile"></mat-slide-toggle>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="setting-item">
+            <div class="setting-label">
+              <h3>Show Email Address</h3>
+              <p>Display your email on your public profile</p>
+            </div>
+            <mat-slide-toggle [(ngModel)]="settings.privacy.showEmail"></mat-slide-toggle>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="setting-item">
+            <div class="setting-label">
+              <h3>Allow Messages</h3>
+              <p>Allow other users to send you messages</p>
+            </div>
+            <mat-slide-toggle [(ngModel)]="settings.privacy.allowMessages"></mat-slide-toggle>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+
+    <!-- Preferences Tab -->
+    <mat-tab label="Preferences" #preferencesTab>
+      <ng-template mat-tab-label>
+        <mat-icon>tune</mat-icon>
+        <span>Preferences</span>
+      </ng-template>
+
+      <mat-card class="settings-card">
+        <mat-card-content>
+          <div class="setting-item">
+            <div class="setting-label">
+              <h3>Language</h3>
+              <p>Select your preferred language</p>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Select Language</mat-label>
+              <mat-select [(ngModel)]="settings.preferences.language">
+                <mat-option *ngFor="let lang of languages" [value]="lang.value">
+                  {{ lang.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="setting-item">
+            <div class="setting-label">
+              <h3>Timezone</h3>
+              <p>Set your timezone for scheduling</p>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Select Timezone</mat-label>
+              <mat-select [(ngModel)]="settings.preferences.timezone">
+                <mat-option *ngFor="let tz of timezones" [value]="tz.value">
+                  {{ tz.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="setting-item">
+            <div class="setting-label">
+              <h3>Date Format</h3>
+              <p>Choose how dates are displayed</p>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Select Format</mat-label>
+              <mat-select [(ngModel)]="settings.preferences.dateFormat">
+                <mat-option *ngFor="let format of dateFormats" [value]="format.value">
+                  {{ format.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button 
+      mat-raised-button 
+      (click)="resetSettings()"
+      [disabled]="!hasChanges()">
+      <mat-icon>undo</mat-icon>
+      Reset to Defaults
+    </button>
+
+    <button 
+      mat-raised-button 
+      (click)="exportSettings()">
+      <mat-icon>download</mat-icon>
+      Export Settings
+    </button>
+
+    <button 
+      mat-raised-button 
+      color="primary"
+      (click)="saveSettings()"
+      [disabled]="!hasChanges()">
+      <mat-icon>save</mat-icon>
+      Save Changes
+    </button>
+  </div>
+</div>

@@ -11,6 +11,9 @@
       <button mat-icon-button class="example-icon" aria-label="Share icon">
         <mat-icon>share</mat-icon>
       </button>
+      <button mat-icon-button routerLink="/settings" matTooltip="Settings" aria-label="Settings">
+        <mat-icon>settings</mat-icon>
+      </button>
       <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="user" aria-label="User menu">
         <mat-icon>account_circle</mat-icon>
       </button>
