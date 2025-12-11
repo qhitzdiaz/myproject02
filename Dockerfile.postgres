@@ -1,0 +1,12 @@
+FROM postgres:15-alpine
+
+# Copy initialization script
+COPY backend/config/init-db.sql /docker-entrypoint-initdb.d/
+
+# Set environment variables
+ENV POSTGRES_DB=logindb
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=postgres
+
+# Expose PostgreSQL port
+EXPOSE 5432

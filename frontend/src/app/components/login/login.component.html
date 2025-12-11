@@ -1,0 +1,66 @@
+<div class="container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>login</mat-icon>
+        Welcome Back
+      </mat-card-title>
+      <mat-card-subtitle>Please login to your account</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="alert alert-error" *ngIf="errorMessage">
+        <mat-icon>error</mat-icon>
+        {{ errorMessage }}
+      </div>
+
+      <form (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email or Username</mat-label>
+          <input
+            matInput
+            type="text"
+            id="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="Enter your email or username"
+            required
+            [disabled]="isLoading"
+          />
+          <mat-icon matPrefix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Enter your password"
+            required
+            [disabled]="isLoading"
+          />
+          <mat-icon matPrefix>lock</mat-icon>
+        </mat-form-field>
+
+        <button 
+          mat-raised-button 
+          color="primary" 
+          type="submit" 
+          [disabled]="isLoading"
+          class="login-button"
+        >
+          <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+          <span *ngIf="!isLoading">Login</span>
+        </button>
+      </form>
+
+      <div class="register-link">
+        Don't have an account? 
+        <a routerLink="/register" mat-button color="accent">Register here</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

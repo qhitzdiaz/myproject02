@@ -1,0 +1,117 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    container_name: login-postgres
+    environment:
+      POSTGRES_DB: logindb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - login-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: login-backend
+    environment:
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: logindb
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      JWT_SECRET: your-secret-key-change-this-in-production
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - login-network
+    restart: unless-stopped
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: login-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - login-network
+    restart: unless-stopped
+
+  # Property PostgreSQL Database
+  property-postgres:
+    image: postgres:15-alpine
+    container_name: property-postgres
+    environment:
+      POSTGRES_DB: propertydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - property_postgres_data:/var/lib/postgresql/data
+      - ./property-service/config/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - login-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Property Management Service
+  property-service:
+    build:
+      context: ./property-service
+      dockerfile: Dockerfile
+    container_name: property-service
+    environment:
+      PORT: 3001
+      DB_HOST: property-postgres
+      DB_PORT: 5432
+      DB_NAME: propertydb
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      JWT_SECRET: your-secret-key-change-this-in-production
+      NODE_ENV: production
+    ports:
+      - "3001:3001"
+    depends_on:
+      property-postgres:
+        condition: service_healthy
+    networks:
+      - login-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  property_postgres_data:
+    driver: local
+
+networks:
+  login-network:
+    driver: bridge

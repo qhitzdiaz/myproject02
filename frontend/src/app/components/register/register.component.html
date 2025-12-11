@@ -1,0 +1,101 @@
+<div class="container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>person_add</mat-icon>
+        Create Account
+      </mat-card-title>
+      <mat-card-subtitle>Sign up to get started</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="alert alert-error" *ngIf="errorMessage">
+        <mat-icon>error</mat-icon>
+        {{ errorMessage }}
+      </div>
+
+      <div class="alert alert-success" *ngIf="successMessage">
+        <mat-icon>check_circle</mat-icon>
+        {{ successMessage }}
+      </div>
+
+      <form (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Full Name</mat-label>
+          <input
+            matInput
+            type="text"
+            id="fullName"
+            name="fullName"
+            [(ngModel)]="fullName"
+            placeholder="Enter your full name"
+            required
+            [disabled]="isLoading"
+          />
+          <mat-icon matPrefix>badge</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            id="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="Enter your email"
+            required
+            [disabled]="isLoading"
+          />
+          <mat-icon matPrefix>email</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Enter your password (min 6 characters)"
+            required
+            [disabled]="isLoading"
+          />
+          <mat-icon matPrefix>lock</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Confirm Password</mat-label>
+          <input
+            matInput
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            [(ngModel)]="confirmPassword"
+            placeholder="Confirm your password"
+            required
+            [disabled]="isLoading"
+          />
+          <mat-icon matPrefix>lock_outline</mat-icon>
+        </mat-form-field>
+
+        <button 
+          mat-raised-button 
+          color="primary" 
+          type="submit" 
+          [disabled]="isLoading"
+          class="login-button"
+        >
+          <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+          <span *ngIf="!isLoading">Register</span>
+        </button>
+      </form>
+
+      <div class="register-link">
+        Already have an account? 
+        <a routerLink="/login" mat-button color="accent">Login here</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
