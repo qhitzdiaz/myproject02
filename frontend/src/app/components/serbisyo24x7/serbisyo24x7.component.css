@@ -69,6 +69,15 @@
   }
 }
 
+/* Analytics Section */
+.analytics-section {
+  margin-bottom: 24px;
+}
+
+.analytics-section app-analytics-dashboard {
+  display: block;
+}
+
 mat-tab-group {
   background-color: white;
   border-radius: 8px;

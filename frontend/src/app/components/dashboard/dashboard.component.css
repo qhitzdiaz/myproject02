@@ -219,24 +219,3 @@ mat-card-content {
     align-items: flex-start;
   }
 }
-
-.analytics-card mat-card-header {
-  background: linear-gradient(135deg, #8B5A2B 0%, #6B4423 100%);
-  color: white;
-  margin: -16px -16px 16px -16px;
-  padding: 16px;
-}
-
-.analytics-card mat-card-title {
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 18px;
-
-  mat-icon {
-    font-size: 24px;
-    width: 24px;
-    height: 24px;
-  }
-}

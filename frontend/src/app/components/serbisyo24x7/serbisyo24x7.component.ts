@@ -22,6 +22,7 @@ import { ProviderDialogComponent } from './dialogs/provider-dialog/provider-dial
 import { ServiceDialogComponent } from './dialogs/service-dialog/service-dialog.component';
 import { BookingDialogComponent } from './dialogs/booking-dialog/booking-dialog.component';
 import { NotificationCenterComponent } from '../notification-center/notification-center.component';
+import { AnalyticsDashboardComponent } from '../analytics-dashboard/analytics-dashboard.component';
 
 @Component({
   selector: 'app-serbisyo24x7',
@@ -44,7 +45,8 @@ import { NotificationCenterComponent } from '../notification-center/notification
     MatBadgeModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NotificationCenterComponent
+    NotificationCenterComponent,
+    AnalyticsDashboardComponent
   ],
   templateUrl: './serbisyo24x7.component.html',
   styleUrls: ['./serbisyo24x7.component.css']
