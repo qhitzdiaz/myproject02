@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 
 interface Playlist {
@@ -20,6 +21,7 @@ interface Playlist {
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    MatDialogModule,
     FormsModule
   ],
   templateUrl: './media-player.component.html',
@@ -34,6 +36,7 @@ export class MediaPlayerComponent implements OnInit {
   isMuted = false;
   isLoop = false;
   isShuffle = false;
+  isDialogMode = false;
 
   playlist: Playlist[] = [
     {
@@ -69,6 +72,10 @@ export class MediaPlayerComponent implements OnInit {
   ];
 
   audioElement: HTMLAudioElement | null = null;
+
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public dialogData: any) {
+    this.isDialogMode = !!dialogData;
+  }
 
   ngOnInit() {
     this.initializeAudio();

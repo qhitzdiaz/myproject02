@@ -9,6 +9,48 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
+.media-player-container.dialog-mode {
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Dialog Header */
+.dialog-header {
+  background: linear-gradient(135deg, #6B4423 0%, #8B5A2B 100%);
+  padding: 24px 20px 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  h2 {
+    margin: 0 0 4px 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+  }
+
+  p {
+    margin: 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.media-player-container.dialog-mode .now-playing {
+  padding: 0 20px;
+  margin-top: 20px;
+}
+
+.media-player-container.dialog-mode .progress-section,
+.media-player-container.dialog-mode .controls,
+.media-player-container.dialog-mode .volume-section,
+.media-player-container.dialog-mode .playlist-section {
+  padding: 0 20px;
+}
+
+.media-player-container.dialog-mode .playlist-section {
+  padding-bottom: 20px;
+}
+
 /* Now Playing Section */
 .now-playing {
   display: flex;

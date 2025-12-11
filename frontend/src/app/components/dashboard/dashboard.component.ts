@@ -11,6 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AuthService, User } from '../../services/auth.service';
 import { MediaPlayerComponent } from '../media-player/media-player.component';
 import { NotificationCenterComponent } from '../notification-center/notification-center.component';
@@ -31,6 +32,7 @@ import { NotificationCenterComponent } from '../notification-center/notification
     MatDividerModule,
     MatBadgeModule,
     MatTooltipModule,
+    MatDialogModule,
     MediaPlayerComponent,
     NotificationCenterComponent
   ],
@@ -39,11 +41,21 @@ import { NotificationCenterComponent } from '../notification-center/notification
 })
 export class DashboardComponent implements OnInit {
   private authService = inject(AuthService);
+  private dialog = inject(MatDialog);
   user: User | null = null;
 
   ngOnInit(): void {
     this.authService.currentUser$.subscribe(user => {
       this.user = user;
+    });
+  }
+
+  openMediaPlayerApp(): void {
+    this.dialog.open(MediaPlayerComponent, {
+      width: '800px',
+      maxWidth: '90vw',
+      height: 'auto',
+      data: {}
     });
   }
 

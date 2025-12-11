@@ -1,15 +1,34 @@
-# Login Application
+# Full-Stack Enterprise Platform
 
-Full-stack login application with Angular PWA frontend, Node.js backend, and PostgreSQL database.
+A comprehensive full-stack application with Angular PWA frontend, multiple Node.js microservices, PostgreSQL database, and advanced features including property management, user administration, supply chain management, services marketplace, media player, analytics dashboard, and notification center.
 
 ## Features
 
-- 🔐 User authentication (Login/Register)
+### Core Features
+- 🔐 User authentication with JWT tokens (Login/Register)
 - 📱 Progressive Web App (PWA) support
-- 🔒 JWT-based authentication
-- 🐘 PostgreSQL database
-- 🐳 Docker containerization
-- 🚀 Production-ready setup
+- 🔒 Secure authentication and authorization
+- 🐘 PostgreSQL database with multiple schemas
+- 🐳 Docker containerization and Docker Compose orchestration
+- 🚀 Production-ready microservices architecture
+
+### Business Features
+- 🏠 **Property Management** - Manage properties, tenants, and maintenance requests
+- 👥 **User Management** - Admin user CRUD operations with role-based access
+- 📦 **Supply Chain Management** - Suppliers, products, and purchase order tracking
+- 🛠️ **Serbisyo24x7** - Complete services marketplace with categories, providers, and bookings
+- 🎵 **Media Player** - HTML5 audio player with playlist support integrated in dashboard
+- 📊 **Analytics Dashboard** - Real-time metrics, system health monitoring, and activity tracking
+- 🔔 **Notification Center** - Real-time alerts with filtering and notification management
+- ⚙️ **Settings/Preferences** - User customization for notifications, appearance, privacy, and preferences
+
+### Technical Features
+- Material Design UI with brown/beige theme
+- Responsive design for mobile and desktop
+- Real-time data visualization
+- Standalone Angular components
+- Microservices architecture
+- Comprehensive error handling
 
 ## Project Structure
 

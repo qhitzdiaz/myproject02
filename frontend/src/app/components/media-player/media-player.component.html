@@ -1,4 +1,10 @@
-<div class="media-player-container">
+<div class="media-player-container" [class.dialog-mode]="isDialogMode">
+  <!-- Dialog Header (only in dialog mode) -->
+  <div *ngIf="isDialogMode" class="dialog-header">
+    <h2>Media Player Application</h2>
+    <p>Enjoy your music collection</p>
+  </div>
+
   <!-- Now Playing -->
   <div class="now-playing">
     <div class="album-art">
