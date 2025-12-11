@@ -9,8 +9,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatBadgeModule } from '@angular/material/badge';
 import { AuthService, User } from '../../services/auth.service';
 import { MediaPlayerComponent } from '../media-player/media-player.component';
+import { NotificationCenterComponent } from '../notification-center/notification-center.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +28,9 @@ import { MediaPlayerComponent } from '../media-player/media-player.component';
     MatCardModule,
     MatMenuModule,
     MatDividerModule,
-    MediaPlayerComponent
+    MatBadgeModule,
+    MediaPlayerComponent,
+    NotificationCenterComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']

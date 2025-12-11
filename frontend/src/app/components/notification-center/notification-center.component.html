@@ -1,0 +1,85 @@
+<div class="notification-center">
+  <!-- Header -->
+  <div class="notification-header">
+    <h3>Notifications</h3>
+    <div class="header-actions">
+      <button mat-icon-button (click)="markAllAsRead()" matTooltip="Mark all as read">
+        <mat-icon>done_all</mat-icon>
+      </button>
+      <button mat-icon-button (click)="clearAll()" matTooltip="Clear all">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="filter-tabs">
+    <button 
+      class="filter-tab"
+      [class.active]="filterType === 'all'"
+      (click)="filterType = 'all'">
+      All
+    </button>
+    <button 
+      class="filter-tab success"
+      [class.active]="filterType === 'success'"
+      (click)="filterType = 'success'">
+      <mat-icon>check_circle</mat-icon>
+      Success
+    </button>
+    <button 
+      class="filter-tab info"
+      [class.active]="filterType === 'info'"
+      (click)="filterType = 'info'">
+      <mat-icon>info</mat-icon>
+      Info
+    </button>
+    <button 
+      class="filter-tab warning"
+      [class.active]="filterType === 'warning'"
+      (click)="filterType = 'warning'">
+      <mat-icon>warning</mat-icon>
+      Warning
+    </button>
+    <button 
+      class="filter-tab error"
+      [class.active]="filterType === 'error'"
+      (click)="filterType = 'error'">
+      <mat-icon>error</mat-icon>
+      Error
+    </button>
+  </div>
+
+  <!-- Notifications List -->
+  <div class="notifications-list">
+    <div *ngIf="getFilteredNotifications().length === 0" class="empty-state">
+      <mat-icon>notifications_none</mat-icon>
+      <p>No notifications</p>
+    </div>
+
+    <div 
+      *ngFor="let notification of getFilteredNotifications()"
+      class="notification-item"
+      [class.unread]="!notification.read"
+      [class]="'notification-' + notification.type">
+      
+      <div class="notification-icon" [style.backgroundColor]="getNotificationColor(notification.type)">
+        <mat-icon>{{ notification.icon }}</mat-icon>
+      </div>
+
+      <div class="notification-content" (click)="markAsRead(notification)">
+        <div class="notification-title">{{ notification.title }}</div>
+        <div class="notification-message">{{ notification.message }}</div>
+        <div class="notification-time">{{ formatTime(notification.timestamp) }}</div>
+      </div>
+
+      <button 
+        mat-icon-button 
+        class="delete-btn"
+        (click)="deleteNotification(notification.id)"
+        matTooltip="Delete">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
